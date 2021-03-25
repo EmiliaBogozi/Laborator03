@@ -6,8 +6,10 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.Image;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.view.View;
 import android.net.Uri;
 import android.widget.Button;
@@ -17,9 +19,13 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
+import static android.provider.SyncStateContract.*;
+
 public class PhoneDialerActivity extends AppCompatActivity {
 
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
+    private static final int PERMISSION_REQUEST_CALL_PHONE = 0;
+
     public int[] buttonsId = {
             R.id.button_1,
             R.id.button_2,
@@ -58,19 +64,15 @@ public class PhoneDialerActivity extends AppCompatActivity {
                     }
                 }
                 if(view.getId() == R.id.imageButton_call) {
-                    Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:" + phoneNumberEditText.getText().toString()));
-                    startActivity(intent);
-                        /*if (ContextCompat.checkSelfPermission(PhoneDialerActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(
-                                    PhoneDialerActivity.this,
-                                    new String[]{Manifest.permission.CALL_PHONE},
-                                    Constants.PERMISSION_REQUEST_CALL_PHONE);
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_CALL);
-                            intent.setData(Uri.parse("tel:" + phoneNumberEditText.getText().toString()));
-                            startActivity(intent);
-                        }*/
+                    if (ContextCompat.checkSelfPermission(PhoneDialerActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(PhoneDialerActivity.this,
+                                new String[]{Manifest.permission.CALL_PHONE},
+                                PERMISSION_REQUEST_CALL_PHONE);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + phoneNumberEditText.getText().toString()));
+                        startActivity(intent);
+                    }
                 }
                 if(view.getId() == R.id.imageButton_endcall) {
                     finish();
