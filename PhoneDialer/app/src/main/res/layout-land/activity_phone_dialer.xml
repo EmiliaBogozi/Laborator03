@@ -6,10 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".PhoneDialerActivity">
 
+    <!-- Varianta Landscape
+    -->
+
     <LinearLayout
         android:layout_width="733dp"
         android:layout_height="333dp"
         android:layout_marginTop="4dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp">
@@ -20,7 +24,9 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:inputType="phone" />
+            android:enabled="false"
+            android:inputType="none"
+            android:text=""/>
 
         <androidx.gridlayout.widget.GridLayout
             android:layout_width="wrap_content"
@@ -121,6 +127,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/call"
                 app:layout_column="0"
+                app:layout_gravity="center"
                 app:layout_row="5" />
 
             <ImageButton
@@ -129,6 +136,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/hangup"
                 app:layout_column="4"
+                app:layout_gravity="center"
                 app:layout_row="5" />
 
             <ImageButton
@@ -137,6 +145,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/backspace"
                 app:layout_column="2"
+                app:layout_gravity="center"
                 app:layout_row="5" />
         </androidx.gridlayout.widget.GridLayout>
 
